@@ -168,7 +168,7 @@ int SwitchStatus(){
 	    fgets(choice, sizeof(choice), stdin);
 	    choice[strcspn(choice, "\r\n")] = '\0';
 	    Tasks[resultIndices[atoi(choice)-1]].status = Tasks[resultIndices[atoi(choice)-1]].status * -1;
-	    printf("    Status Switched successfully \n");
+	    printf("    Status Switched successfully \n\n");
     };
 };
 
