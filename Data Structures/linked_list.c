@@ -9,7 +9,7 @@ struct Node{
 struct Node* makeLinkedList(int list[], int length, int i){
     if ( length == 0 ){
         struct Node *node = malloc(sizeof(struct Node));
-        node -> val = 0;
+        node -> val = list[i];
         node -> next = NULL;
         return node;
     };
