@@ -18,6 +18,7 @@ int loadTasks(){
 		printf("Error while opening file");
 		return 1;
 	};
+	printf("Tasks loaded successfully!\n\n");
 	while (fread(&(Tasks[Index]), sizeof(struct Task), 1, TaskFile)){
 	   if (Index == Taskslength-1){ // If tasks in the file exceed 
 	   	break;                   // allocated memory, break
@@ -26,16 +27,18 @@ int loadTasks(){
     };
     if (fclose(TaskFile) != 0){
     	printf("error: File didnt close successfully \n");
+    	return 1;
     };
 };
 
-void SaveTasks(){
+int SaveTasks(){
 	FILE * TaskFile = fopen("Tasks.txt", "wb");
 	for (int i=0; i<Index; i++){
 		fwrite(&(Tasks[i]), sizeof(struct Task), 1, TaskFile);
 	}
 	if (fclose(TaskFile) != 0){
     	printf("error: File didnt close successfully\n");
+    	return 1;
     };
 };
 
@@ -126,6 +129,7 @@ void DeleteTasks(){
 	    for (int j = i; j < Index; j++){
 	    	Tasks[j] = Tasks[j+1];
 	    }
+	    Index -= 1;
 	    printf("    Task Deleted Successfully\n");
 	};
 };
@@ -172,14 +176,24 @@ int SwitchStatus(){
     };
 };
 
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");  // Windows command
+#else
+    system("clear"); // Linux and macOS command
+#endif
+};
+
 int main() {
     printf("               _______Task Manager_______\n ");
     printf("                (Enter number to select)\n\n");
-    printf("1. Add Task\n2. View Tasks\n3. Delete Task\n4. Switch Status\n5. Escape\n\n");
-    loadTasks();
+    printf("1. Add Task\n2. View Tasks\n3. Delete Task\n4. Switch Status\n5. Clear Terminal\n6. Save\n7. Save and Escape\n\n");
+    if (loadTasks() == 1){
+    	return 1;
+    };
   
     while (1){
-	    char mode[5];
+	    char mode[10];
 	    int num;
 	    printf("                 _____Mode Selection_____\n");
 	    printf("\nEnter number: ");
@@ -187,7 +201,7 @@ int main() {
 	    mode[strcspn(mode, "\r\n")] = '\0';
 	    num = atoi(mode);
 	    
-	    if (num == 5){
+	    if (num == 7){
 	    	break;
 	    }
 	    switch (num){
@@ -203,11 +217,25 @@ int main() {
 	        case 4:
 	        	SwitchStatus();
 	        	break;
+	        case 5:
+	        	clearScreen();
+	        	printf("               _______Task Manager_______\n ");
+	        	printf("                (Enter number to select)\n\n");
+	        	printf("1. Add Task\n2. View Tasks\n3. Delete Task\n4. Switch Status\n5. Clear Terminal\n6. Save\n7. Save and Escape\n\n");
+	        	break;
+	        case 6:
+	        	if (SaveTasks() == 1){
+			    	printf("There was an error saving Tasks");
+			    };
+	        	
+	        	break;
 	        default:
 	        	printf(" Invalid Mode Entered ");
 	    };
 	    printf("\n");
     };
-    SaveTasks();
+    if (SaveTasks() == 1){
+    	return 1;
+    };
     return 0;
 };
