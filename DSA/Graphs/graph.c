@@ -102,11 +102,7 @@ Graph makeGraph(int values[], vect* edges, int noOfnodes,int startingNode){
 	// initializing nodes with values
 	for (int i = 0; i<noOfnodes; i++){
 		int val = values[i];
-		nodes[i] = (Node){val};
-	}
-	// setting adjacents of nodes
-	for (int i = 0; i<noOfnodes; i++){
-		nodes[i].adjacents = edges[i];
+		nodes[i] = (Node){val, edges[i]};
 	}
 	g.vertices = noOfnodes;
 	g.nodes = nodes;
