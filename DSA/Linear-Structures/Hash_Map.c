@@ -10,96 +10,97 @@ This hashmap implementation only allows strings as keys. But it allows these dat
  */
  
  // USAGE
-int main(int argc, char *argv[])
-{
-	Hashmap Scoremap = new_HashMap(20);
+//int main(int argc, char *argv[])
+//{
+//	Hashmap* Scoremap = new_HashMap(20);
 
-	char *students[10] = {
-		"Liam Smith",
-		"Noah Johnson",
-		"Oliver Williams",
-		"Elijah Brown",
-		"James Jones",
-		"William Garcia",
-		"Benjamin Miller",
-		"Lucas Davis",
-		"Henry Rodriguez",
-		"Alexander Martinez"};
+//	char *students[10] = {
+//		"Liam Smith",
+//		"Noah Johnson",
+//		"Oliver Williams",
+//		"Elijah Brown",
+//		"James Jones",
+//		"William Garcia",
+//		"Benjamin Miller",
+//		"Lucas Davis",
+//		"Henry Rodriguez",
+//		"Alexander Martinez"};
 
-	int scores[10] = {
-		85, 92,
-		78, 95,
-		88, 73,
-		90, 64,
-		81, 89};
-		
-	int numScores = sizeof(scores) / sizeof(int);
-	char *results[numScores];
-	for (int i = 0; i < numScores; i++)
-	{
-		if (scores[i] >= 95)
-		{
-			results[i] = "A+";
-		}
-		else if (scores[i] >= 90)
-		{
-			results[i] = "A";
-		}
-		else if (scores[i] >= 85)
-		{
-			results[i] = "B+";
-		}
-		else if (scores[i] >= 80)
-		{
-			results[i] = "B";
-		}
-		else if (scores[i] >= 75)
-		{
-			results[i] = "C+";
-		}
-		else if (scores[i] >= 70)
-		{
-			results[i] = "C";
-		}
-		else
-		{
-			results[i] = "F";
-		}
-	}
-	
-	// Adding key value pairs to hashmap
-	printf("items added to hashmap:- \n");
-	for (int i = 0; i < 10; i++)
-	{
-		AddToMap(&Scoremap, students[i], scores[i], INT);
-	}
-	printFullMap(&Scoremap);
-
-
-	// Changing values to a different type
-	printf("items changed in hashmap:- \n");
-	for (int i = 0; i < 10; i++)
-	{
-		AddToMap(&Scoremap, students[i], results[i], STRING);
-	}
-	printFullMap(&Scoremap);
-	
-	
-	// Looking up a value
-	printf("looking up by value:- \n");
-	printItem(lookup(&Scoremap,"Elijah Brown"));
+//	int scores[10] = {
+//		85, 92,
+//		78, 95,
+//		88, 73,
+//		90, 64,
+//		81, 89};
+//		
+//	int numScores = sizeof(scores) / sizeof(int);
+//	char *results[numScores];
+//	for (int i = 0; i < numScores; i++)
+//	{
+//		if (scores[i] >= 95)
+//		{
+//			results[i] = "A+";
+//		}
+//		else if (scores[i] >= 90)
+//		{
+//			results[i] = "A";
+//		}
+//		else if (scores[i] >= 85)
+//		{
+//			results[i] = "B+";
+//		}
+//		else if (scores[i] >= 80)
+//		{
+//			results[i] = "B";
+//		}
+//		else if (scores[i] >= 75)
+//		{
+//			results[i] = "C+";
+//		}
+//		else if (scores[i] >= 70)
+//		{
+//			results[i] = "C";
+//		}
+//		else
+//		{
+//			results[i] = "F";
+//		}
+//	}
+//	
+//	// Adding key value pairs to hashmap
+//	printf("items added to hashmap:- \n");
+//	for (int i = 0; i < 10; i++)
+//	{
+//		AddToMap(Scoremap, students[i], scores[i], INT);
+//	}
+//	printFullMap(Scoremap);
 
 
-	//Clearing the map
-	printf("\nhasmap cleared:- \n");
-	clearMap(&Scoremap);
-	printFullMap(&Scoremap);
+//	// Changing values to a different type
+//	printf("items changed in hashmap:- \n");
+//	for (int i = 0; i < 10; i++)
+//	{
+//		AddToMap(Scoremap, students[i], results[i], STRING);
+//	}
+//	printFullMap(Scoremap);
+//	
+//	
+//	// Looking up a value
+//	printf("looking up by value:- \n");
+//	printItem(lookup(Scoremap,"Elijah Brown"));
 
-		
-	// Freeing the memory allocated for items*
-	free(Scoremap.items);
-	return 0;
-}
+
+//	//Clearing the map
+//	printf("\nhasmap cleared:- \n");
+//	clearMap(Scoremap);
+//	printFullMap(Scoremap);
+
+//		
+//	// Freeing the memory allocated for items*
+//	free(Scoremap->items);
+//    free(Scoremap);
+//	return 0;
+//}
 
 //    +---------Implementation---------+
 
@@ -237,17 +238,19 @@ void printItem(Item *item)
 }
 
 // creates hashmap and initializes all elements of the allocated as NULL
-Hashmap new_HashMap(int size)
+Hashmap* new_HashMap(int size)
 {
+	Hashmap* hashmap=malloc(sizeof(Hashmap));
+	hashmap->size = size;
+	
 	Item **items = malloc(size * sizeof(int));
 	// initializing all items as NULL
 	for (int i = 0; i < size; i++)
 	{
 		items[i] = NULL;
 	}
-	return (Hashmap){
-		.size = size,
-		.items = items};
+	hashmap->items = items;
+	return hashmap;
 }
 
 // prints full map including all elements

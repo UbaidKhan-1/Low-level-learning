@@ -33,9 +33,9 @@ void clearMap(Hashmap* map);
 
 void clearMap_r(Item* item);
 
-Hashmap new_HashMap(int size);
+Hashmap* new_HashMap(int size);
 
-void printItem(Item *item);
+void printItem(Item* item);
 
-void printFullMap(Hashmap *hashmap);
+void printFullMap(Hashmap* hashmap);
 #endif
