@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
-#include "../Utils/array_sorting.h"
+#include "array_sorting.h"
 
 
 //------------ Main -------------

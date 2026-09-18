@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../Utils/dynamicArray.h"
+#include "dynamicArray.h"
 
 // Usage
 int main(int argc, char *argv[])

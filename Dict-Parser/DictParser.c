@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../DSA/Utils/hashMap.h"
 #include <string.h>
 #include <ctype.h>
+#include "DictParser.h"
 
-void stripSpaces(char* str) {
+void strip_Spaces(char* str) {
     int write = 0;
     bool instring = false;
     for (int read = 0; str[read] != '\0'; read++) {
@@ -29,7 +29,7 @@ Hashmap* createHashmap(char dictString[]){
 	//-----------------------
 	
 	// stripping all white space
-	stripSpaces(dictString);
+	strip_Spaces(dictString);
 	
 	// finding length after stripped
 	int length = strlen(dictString);
@@ -53,7 +53,7 @@ Hashmap* createHashmap(char dictString[]){
 	bool currentType = KEY;
 	
 	// initializing a new hashmap
-	Hashmap* hashmap = new_HashMap(30);
+	Hashmap* hashmap = new_HashMap(50);
 	
 	char key[50];
 	char value[50];
@@ -146,26 +146,26 @@ Hashmap* createHashmap(char dictString[]){
 }
 
 //example usage
-int main(int argc, char *argv[])
-{
-	char dict[] = "{"
-	
-             "name: 'Carla',"
-             "age: 19,"
-             "occupation: 'teacher',"
-             "salary: 75000,"
-             "isMarried: false,"
-             "height: '5ft 7',"
-             "city: 'Lahore',"
-             "languages: 'English',"
-             
-             "}";
-             
-	Hashmap* hashmap=createHashmap(dict);
-	
-	printf("");
-	printFullMap(hashmap);
-	free(hashmap->items);
-	free(hashmap);
-	return 0;
-}
+//int main(int argc, char *argv[])
+//{
+//	char dict[] = "{"
+//	
+//             "name: 'Carla',"
+//             "age: 19,"
+//             "occupation: 'teacher',"
+//             "salary: 75000,"
+//             "isMarried: false,"
+//             "height: '5ft 7',"
+//             "city: 'Lahore',"
+//             "languages: 'English',"
+//             
+//             "}";
+//             
+//	Hashmap* hashmap=createHashmap(dict);
+//	
+//	printf("");
+//	printFullMap(hashmap);
+//	free(hashmap->items);
+//	free(hashmap);
+//	return 0;
+//}

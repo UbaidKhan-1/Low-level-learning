@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../Utils/hashMap.h"
+#include "hash_map.h"
 
 /*
 
@@ -25,8 +25,11 @@ This hashmap implementation only allows strings as keys. But it allows these dat
 //		"Lucas Davis",
 //		"Henry Rodriguez",
 //		"Alexander Martinez"};
-
-//	int scores[10] = {
+//	
+//	// size_t is preferred for INT type values
+//	// because it is safer for conversion to
+//	// void*
+//	size_t scores[10] = {
 //		85, 92,
 //		78, 95,
 //		88, 73,
@@ -34,7 +37,7 @@ This hashmap implementation only allows strings as keys. But it allows these dat
 //		81, 89};
 //		
 //	int numScores = sizeof(scores) / sizeof(int);
-//	char *results[numScores];
+//	char* results[numScores];
 //	for (int i = 0; i < numScores; i++)
 //	{
 //		if (scores[i] >= 95)
@@ -200,7 +203,7 @@ bool AddToMap(Hashmap *hashmap, char *key, void *value, types type)
 }
 
 // Looks up an item by its key in the hasmap
-Item *lookup(Hashmap *hashmap, char *key)
+Item* lookup(Hashmap *hashmap, char *key)
 {
 	int index = Hash(key) % hashmap->size;
 	Item *curr = hashmap->items[index];
@@ -226,7 +229,7 @@ void printItem(Item *item)
 	switch (item->type)
 	{
 	case INT:
-		printf("%i\n", (int)item->value);
+		printf("%li\n", (intptr_t)item->value);
 		break;
 	case STRING:
 		printf("%s\n", (char *)item->value);

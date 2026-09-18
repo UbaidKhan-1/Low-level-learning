@@ -211,7 +211,7 @@ This allows the parser to focus on interpreting the input format while the hashm
 From inside the `Dict-Parser` directory, compile the parser with Clang:
 
 ```bash
-clang DictParser.c ../DSA/Linear-Structures/Hash_Map.c -Wno-int-conversion -o main
+clang DictParser.c ../DSA/Linear-Structures/hash_map.c -Wno-int-conversion -o main
 ```
 
 Then run:

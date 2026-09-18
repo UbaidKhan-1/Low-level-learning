@@ -1,6 +1,6 @@
 #ifndef HASHMAP_H
 #define HASHMAP_H
-#include <stdbool.h>
+#include "../Utils/macros.h"
 
 typedef enum types{
 	INT,
