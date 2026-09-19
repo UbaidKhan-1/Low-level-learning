@@ -829,15 +829,15 @@ char* BinaryEncoder(Token* tokens, int n, SyntaxMap* syntax){
 			memcpy(&machineCode[codeIndex], "111", 3);
 			codeIndex+=3;
 			
-			// Copy dest bitstring
-			int destLen = strlen(destcode->value);
-			memcpy(&machineCode[codeIndex], destcode->value, destLen);
-			codeIndex += destLen;
-			
 			// Copy comp bitstring
 			int compLen = strlen(compcode->value);
 			memcpy(&machineCode[codeIndex], compcode->value, compLen);
 			codeIndex += compLen;
+			
+			// Copy dest bitstring
+			int destLen = strlen(destcode->value);
+			memcpy(&machineCode[codeIndex], destcode->value, destLen);
+			codeIndex += destLen;
 			
 			// Copy jdir bitstring
 			int jdirLen = strlen(jdircode->value);
