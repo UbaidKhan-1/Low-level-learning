@@ -15,10 +15,10 @@
 M = 1// i = 1
 
 @R0
-D = A // D = RAM[0]
+D = M // D = RAM[0]
 
 @n
-M = D // n = 100 (rows)
+M = D // n = rows
 
 @SCREEN
 D = A // D = SCREEN
@@ -27,25 +27,25 @@ D = A // D = SCREEN
 M = D // addr = SCREEN (current address)
 
 (LOOP)
-@Addr
-A = M // A = RAM[Addr]
-M = -1 // RAM[RAM[Addr]] = -1 (16 bits)
-
-@32  
-D = A // D = 32  
-  
-@Addr  
-M = M+D // current address += 32  
-  
-@i  
-M = M+1 // i++  
-  
-D = M // D = i  
-@n  
-D = M-D // D = n-i  
-  
-@LOOP  
-D; JGT
+	@Addr
+	A = M // A = RAM[Addr]
+	M = -1 // RAM[RAM[Addr]] = -1 (16 bits)
+	
+	@32  
+	D = A // D = 32  
+	  
+	@Addr  
+	M = M+D // current address += 32  
+	  
+	@i  
+	M = M+1 // i++  
+	  
+	D = M // D = i  
+	@n  
+	D = M-D // D = n-i  
+	  
+	@LOOP  
+	D; JGT
 
 (END)
 @END
