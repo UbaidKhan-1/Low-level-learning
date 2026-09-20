@@ -295,7 +295,7 @@ int resolveSymbols(Hashmap* symbols, unsigned char* str){
 			}
 			else if (symbolIndex > 0){
 				if (lookup(symbols, symbol) == NULL){
-					AddToMap(symbols, symbol, (void*)(intptr_t)insNum+1, INT);
+					AddToMap(symbols, symbol, (void*)(intptr_t)insNum, INT);
 				}
 				symbolIndex = 0;
 				read ++;
