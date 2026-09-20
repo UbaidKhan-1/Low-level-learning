@@ -23,8 +23,12 @@ M = D // n = rows
 @SCREEN
 D = A // D = SCREEN
 
+
+@10
+D = D+A
+
 @Addr
-M = D // addr = SCREEN (current address)
+M = D // addr = SCREEN + horizontal offset(10)
 
 (LOOP)
 	@Addr
