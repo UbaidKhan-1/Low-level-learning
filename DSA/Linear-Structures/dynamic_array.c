@@ -1,28 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "dynamicArray.h"
-
-// Usage
-int main(int argc, char *argv[])
-{
-	int nums[] = {1, 2, 3, 4, 5};
-	int n = sizeof(nums)/sizeof(int);
-	VectN dynamic_nums = new_VectN(nums, n);
-	printf("orignal: \n");
-	printVectN(dynamic_nums);
-	appendTo(&dynamic_nums, 6);
-	printf("appended: 6\n");
-	printVectN(dynamic_nums);
-	printf("popped: 6\n");
-	pop(&dynamic_nums, dynamic_nums.size-1);
-	printVectN(dynamic_nums);
-}
-
+#include "dynamic_array.h"
 
 // Takes in a static array returns a
 // dynamic vector
-VectN new_VectN(int arr[], int n){
-	int* data = malloc(2*n);
+VectN new_VectN(Item* arr, int n){
+	Item* data = malloc(sizeof(Item)*2*n);
 	// copy over data
 	for(int i = 0; i < n; i++){
 		data[i] = arr[i];
@@ -45,35 +28,51 @@ void printVectN(VectN nums){
 	printf("\n");
 }
 
+// Creates an item from a given value and type and
+// Stores it in the privided address
+int new_Item(void* value, types type, Item* dest){
+	if (type >= LAST_TYPE){
+		return ERROR;
+	}
+	*dest = (Item){
+		.type = type,
+		.value = value
+	};
+	return SUCCESS;
+}
 
 // appends element at the end
-void appendTo(VectN* nums, int e){
-	if (nums->size >= nums->capacity){
-		int* data = malloc(nums->capacity*2);
+void appendTo(VectN* List, void* e, types type){
+	if (List->size >= List->capacity){
+		Item* temp = List->data;
+		Item* data = malloc(List->capacity*2);
 		// copying over elements
-		for (int i=0; i<nums->size; i++){
-			data[i] = nums->data[i];
+		for (int i=0; i<List->size; i++){
+			data[i] = List->data[i];
 		}
-		nums->capacity *= 2;
+		List->capacity *= 2;
+		List->data = data;
+		free(temp);
 	}
-	nums->data[nums->size] = e;
-	nums->size += 1;
+	Item item;
+	new_Item(e, type, &item);
+	List->data[List->size] = item;
+	List->size += 1;
 }
 
 // pops element at the provided index
-int pop(VectN* nums, int index, int* element){
-	if (index > nums->size-1){
-		return 1;
+int pop(VectN* List, int index, Item* element){
+	if (index > List->size-1){
+		return ERROR;
 	}
-	*element = nums->data[index];
-	if (index == nums->size-1){
-		nums->data[index] = 0;
-		nums->size -= 1;
-		return 0;
+	*element = List->data[index];
+	if (index == List->size-1){
+		List->size -= 1;
+		return SUCCESS;
 	}
-	for (int i=index; i<nums->size-1; i++){
-		nums->data[i] = nums->data[i+1];
+	for (int i=index; i<List->size-1; i++){
+		List->data[i] = List->data[i+1];
 	}
-	nums->size -= 1;
-	return 0;	
+	List->size -= 1;
+	return SUCCESS;	
 }

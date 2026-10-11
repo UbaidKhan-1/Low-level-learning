@@ -1,3 +1,5 @@
+#ifndef MACROS_H
+#define MACROS_H
 #include <stdint.h>
 
 typedef char* str;
@@ -16,3 +18,7 @@ typedef i8 bool;
 #define ABS(x) x>0? x:-x
 #define MAX(x, y) ((x)>(y)? (x):(y))
 #define MIN(x, y) ((x)<(y)? (x):(y))
+#define ERROR 1
+#define SUCCESS 0
+
+#endif

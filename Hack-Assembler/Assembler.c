@@ -812,15 +812,18 @@ char* BinaryEncoder(Token* tokens, int n, SyntaxMap* syntax){
 			
 			if (destcode == NULL ){
 				fprintf(stderr, "Invalid C Instruction: destination not supported\n--Instruction # %i --> %s\n", insNum, ins->dest);
+				free(machineCode);
 				return NULL;
 			}
 			
 			if (compcode == NULL){
 				fprintf(stderr, "Invalid C Instruction: computation not supported\n--Instruction # %i -> %s\n", insNum, ins->comp);
+				free(machineCode);
 				return NULL;
 			}
 			if (jdircode == NULL){
 				fprintf(stderr, "Invalid C Instruction: jump directive not supported\n--Instruction # %i -> %s\n", insNum, ins->jdir);
+				free(machineCode);
 				return NULL;
 			}
 			
